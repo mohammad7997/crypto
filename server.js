@@ -1,29 +1,26 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var users = [];
 
+
+// config redis io for crypto-data-channel
 var Redis = require('ioredis');
 var redis = new Redis();
 redis.subscribe('crypto-data-channel', (err, count) => {
-  if (err) {
-    // Just like other commands, subscribe() can fail for some reasons,
-    // ex network issues.
+    if (err) {
     console.error("Failed to subscribe: %s", err.message);
-  } else {
-    // `count` represents the number of channels this client are currently subscribed to.
-    console.log(
-      `Subscribed successfully! This client is currently subscribed to ${count} channels.`
-    );
-  }
+    } else {
+        console.log(
+        `Subscribed successfully! This client is currently subscribed to ${count} channels.`
+        );
+    }
 });
 
 
+// send data to front
 redis.on("message", (channel, message) => {
-
     const data = JSON.parse(message).data;
     let messages = data.crypto_data;
-
     io.emit(channel,messages);
 });
 

@@ -39,13 +39,7 @@
                     </tr>
                 </thead>
                 <tbody id="content">
-                    <tr>
-                        <td>Ifat</td>
-                        <td>Fahim</td>
-                        <td>Fahim</td>
-                        <td>Fahim</td>
-                        <td>ifatfahim007@gmail.com</td>
-                    </tr>
+                
                 </tbody>
             </table>
             </div>

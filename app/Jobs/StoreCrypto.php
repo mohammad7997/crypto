@@ -43,10 +43,10 @@ class StoreCrypto implements ShouldQueue
         $client = new CoinGeckoClient();
         $information = $client->simple()->getPrice($this->cryptos_name, $this->currency);
 
+        // save or update data
         foreach($information as $key => $data)
         {
             Crypto::updateOrCreate(
-
                 // matches parameter
                 ['crypto_name' => $key],
 
@@ -61,6 +61,6 @@ class StoreCrypto implements ShouldQueue
         }
 
         event(new DataCrypto($information));
-
+        
     }
 }
