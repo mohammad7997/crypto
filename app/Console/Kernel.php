@@ -2,12 +2,15 @@
 
 namespace App\Console;
 
+use Carbon\Carbon;
 use App\Jobs\StoreCrypto;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
+
+    protected $seconds = 3;
     /**
      * Define the application's command schedule.
      *
@@ -16,11 +19,23 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+
         // $schedule->command('inspire')->hourly();
         $schedule->call(function () {
-            $data = StoreCrypto::dispatch(env('CRYPTOS_NAME','0x,bitcoin'),'usd,rub,gbp,aud');
+
+            $dt = Carbon::now();
+            $x  = 60 / $this->seconds;
+
+            do {
+                StoreCrypto::dispatch(env('CRYPTOS_NAME','0x,absorber,bitcoin,tron,tether,eos,litecoin,ethereum,abulaba,acala'),'usd,rub,gbp,aud');
+
+                time_sleep_until($dt->addSeconds($this->seconds)->timestamp);
+            } while ($x-- > 0);
         })
-        ->everySecond(3);
+        ->everyMinute();
+
+
+
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Codenixsv\CoinGeckoApi\CoinGeckoClient;
 
 
 /*
@@ -17,8 +17,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $client = new CoinGeckoClient();
-    // $data = $client->ping();
-    $data = $data = $client->simple()->getPrice('0x,bitcoin', 'usd,rub,gbp,aud');
-    // $data = $data = $client->coins()->getList();
+    // // $data = $client->ping();
+    $data = $data = $client->simple()->getPrice('0x,absorber,bitcoin,tron,tether,eos,litecoin,ethereum,abulaba,acala', 'usd,rub,gbp,aud');
+    // // $data = $data = $client->coins()->getList();
     dd($data);
+
+    // return view('welcome');
 });

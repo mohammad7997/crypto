@@ -15,6 +15,11 @@ class CreateCryptosTable extends Migration
     {
         Schema::create('cryptos', function (Blueprint $table) {
             $table->id();
+            $table->string('crypto_name');
+            $table->string('usd');
+            $table->string('gbp');
+            $table->string('aud');
+            $table->string('rub');
             $table->timestamps();
         });
     }

@@ -2,14 +2,15 @@
 
 namespace App\Jobs;
 
+use App\Models\Crypto;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-
+use Illuminate\Queue\InteractsWithQueue;
 use Codenixsv\CoinGeckoApi\CoinGeckoClient;
+use Illuminate\Contracts\Queue\ShouldQueue;
+
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 
 
 class StoreCrypto implements ShouldQueue
@@ -37,7 +38,27 @@ class StoreCrypto implements ShouldQueue
      */
     public function handle()
     {
+        // get information from coin gecko client
         $client = new CoinGeckoClient();
-        $data = $client->simple()->getPrice($this->cryptos_name'0x,bitcoin', $this->currency'usd,rub,gbp,aud');
+        $information = $client->simple()->getPrice($this->cryptos_name, $this->currency);
+
+        foreach($information as $key => $data)
+        {
+            Crypto::updateOrCreate(
+
+                // matches parameter
+                ['crypto_name' => $key],
+
+                // save parameter
+                [
+                'crypto_name' => $key,
+                'usd' =>  $data['usd'],
+                'gbp' =>  $data['gbp'],
+                'aud' =>  $data['aud'],
+                'rub' =>  $data['rub'],
+            ]);
+        }
+
+
     }
 }
