@@ -14,7 +14,7 @@ class DataCrypto implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    protected $crypto_data;
+    public $crypto_data = [];
     /**
      * Create a new event instance.
      *
@@ -32,6 +32,6 @@ class DataCrypto implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('crypto_data');
+        return new Channel('crypto-data-channel');
     }
 }

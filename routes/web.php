@@ -16,11 +16,11 @@ use Codenixsv\CoinGeckoApi\CoinGeckoClient;
 */
 
 Route::get('/', function () {
-    $client = new CoinGeckoClient();
-    // // $data = $client->ping();
-    $data = $data = $client->simple()->getPrice('0x,absorber,bitcoin,tron,tether,eos,litecoin,ethereum,abulaba,acala', 'usd,rub,gbp,aud');
-    // // $data = $data = $client->coins()->getList();
-    dd($data);
+    // $client = new CoinGeckoClient();
+    // // // $data = $client->ping();
+    // $data = $data = $client->simple()->getPrice('0x,absorber,bitcoin,tron,tether,eos,litecoin,ethereum,abulaba,acala', 'usd,rub,gbp,aud');
+    // // // $data = $data = $client->coins()->getList();
+    // dd($data);
 
-    // return view('welcome');
+    return view('welcome');
 });
