@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $client = new CoinGeckoClient();
+    // $data = $client->ping();
+    $data = $data = $client->simple()->getPrice('0x,bitcoin', 'usd,rub,gbp,aud');
+    // $data = $data = $client->coins()->getList();
+    dd($data);
 });
